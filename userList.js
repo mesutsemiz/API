@@ -1,43 +1,106 @@
-const tbody = document.getElementById("tbodyUserList");
-window.onload = () => {
-    getApiUserList();
-    setInterval(getApiUserList, 5000);
-}
-const getApiUserList = async (pageNo) => {
-    tbody.innerHTML = "";
-    showLoading();
-    // const responseData = await axios({
-    //     url: "https://reqres.in/api/users?page=1",
-    //     method: "get"
-    // });
+$(document).ready(function () {
+    setTimeout(getUserList, 2000);
+})
 
-        const responseData = await axios.get("https://reqres.in/api/users?page=1");
 
-    // console.log(responseData.data.data);
-    if (responseData.data.data[0].id == undefined) {
-        alert("userlist not found!");
-        removeLoading();
+
+// const getUserList = () =>{
+    
+
+    
+
+//     fetch("https://reqres.in/api/users?page=2", {
+//         methd:"GET",
+//     })
+//     .then(response =>response.json())
+//     .then(response =>{
+//         if (response.data[0].id != "0"){
+//             for(let i=0; i<response.data.length; i++){
+//                 $("#tbodyUserList").append(`
+
+//             <tr>
+//                 <td>
+//                 <img src="${response.data[i].avatar}"/>
+//                 </td>
+//                 <td>
+//                 ${response.data[i].id}
+
+//                 </td>
+//                 <td>
+//                 ${response.data[i].email}
+
+//                 </td>
+//                 <td>
+                
+//                 ${response.data[i].first_name}
+
+//                 </td>
+//                 <td>
+//                 ${response.data[i].last_name}
+
+//                 </td>
+//             </tr>
+
+                
+                
+//                 `)
+//             }
+
+//         }
+//     })
+//     .catch((e)=>console.log(e))
+
+
+
+// }
+
+
+
+
+
+// get Axios
+
+const getUserList = async () =>{
+
+
+    const response = await axios({
+        
+        url : 'https://reqres.in/api/users?page=1',
+        method:'GET'
+    });
+
+    if(response.data.id != "0"){
+                        for(let i=0; i<response.data.data.length; i++){
+                            $("#tbodyUserList").append(`
+            
+                        <tr>
+                            <td>
+                            <img src="${response.data.data[i].avatar}"/>
+                            </td>
+                            <td>
+                            ${response.data.data[i].id}
+            
+                            </td>
+                            <td>
+                            ${response.data.data[i].email}
+            
+                            </td>
+                            <td>
+                            
+                            ${response.data.data[i].first_name}
+            
+                            </td>
+                            <td>
+                            ${response.data.data[i].last_name}
+            
+                            </td>
+                        </tr>
+            
+                            
+                            
+                            `)
+                        }
     }
-    else {
-        for (let i = 0; i < responseData.data.data.length; i++) {
-            tbody.innerHTML += ` <tr>
-            <td>
-            <img src="${responseData.data.data[i].avatar}"/>
-            </td>
-            <td>
-            ${responseData.data.data[i].id}
-            </td>
-            <td>
-            ${responseData.data.data[i].email}
-            </td>
-            <td>
-            ${responseData.data.data[i].first_name}
-            </td>
-            <td>
-            ${responseData.data.data[i].last_name}
-            </td>
-     </tr>`;
-            removeLoading()
-        }
-    }
+
 }
+

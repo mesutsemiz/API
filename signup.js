@@ -39,34 +39,66 @@ const fillFromInput = () => {
 //     }
 
 // }
-//  FETC()
 
-const apiRegister = () =>{
-    let email = localStorage.getItem("email").value;
-    let password = localStorage.getItem("password").value;
 
-    const bodyData = {
-        email : email,
-        password :password
-    };
 
-    fetch("https://reqres.in/api/register", {
-        methd:"POST",
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(bodyData)
-    })
-    .then(response =>response.json())
-    .then(data =>{
-        if (data.id != "0"){
-            console.log(data);
-            alert("welcome"+email.split("@")[0])
+// //  FETC()
+
+// const apiRegister = () =>{
+//     let email = document.getElementById("email").value;
+//     let password =document.getElementById("password").value;
+
+//     const bodyData = {
+//         email : email,
+//         password :password
+//     };
+//     console.log(bodyData)
+//     console.log(JSON.stringify(bodyData))
+
+//     fetch("https://reqres.in/api/register", {
+//         methd:"POST",
+//         headers:{
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(bodyData)
+//     })
+//     .then(response =>response.json())
+//     .then(data =>{
+//         if (data.id != "0"){
+//             console.log(data);
+//             alert("welcome"+email.split("@")[0]);
+//             sessionStorage.setItem("token",data.token)
+//         }
+//     })
+//     .catch((e)=>console.log(e))
+
+
+
+// }
+
+
+
+
+
+//  Axios()
+
+const apiRegister = async () =>{
+    let email = document.getElementById("email").value;
+    let password =document.getElementById("password").value;
+
+    const response = await axios({
+        
+        url : 'https://reqres.in/api/register',
+        method:'post',
+        data:{
+            email: email,
+            password: password
         }
-    })
-    .catch((e)=>console.log(e))
 
+    });
 
-
+    if(response.data.id != "0"){
+        console.log(response.data);
+        window.location.href ="userList.html";
+    }
 }
-
